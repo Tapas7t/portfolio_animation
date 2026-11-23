@@ -31,7 +31,7 @@ export const ScrollTextRevealCard: React.FC<ScrollTextRevealCardProps> = ({
         scrollTrigger: {
           trigger: container,
           pin: card,
-          start: 'top 12%',
+          start: 'top 16%',
           end: '+=100%',
           scrub: 0.5,
           anticipatePin: 1,
@@ -66,10 +66,10 @@ export const ScrollTextRevealCard: React.FC<ScrollTextRevealCardProps> = ({
       ref={containerRef}
       className="relative w-full my-4 select-none"
     >
-      {/* Full-Cover Pinned Card */}
+      {/* Full-Cover Compact Widescreen Pinned Card */}
       <div
         ref={cardRef}
-        className="w-full max-w-6xl mx-auto rounded-3xl p-8 sm:p-12 md:p-14 lg:p-16 bg-surface/90 border border-stroke/90 backdrop-blur-xl shadow-[0_24px_70px_rgba(0,0,0,0.7)] overflow-hidden"
+        className="w-full max-w-6xl mx-auto rounded-3xl px-6 py-6 sm:px-10 sm:py-7 md:px-14 md:py-8 lg:px-16 lg:py-8 bg-surface/90 border border-stroke/90 backdrop-blur-xl shadow-[0_24px_70px_rgba(0,0,0,0.7)] overflow-hidden"
       >
         {/* Subtle Ambient Radial Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-[#89AACC]/12 to-[#4E85BF]/12 rounded-full blur-[140px] pointer-events-none" />
@@ -78,27 +78,27 @@ export const ScrollTextRevealCard: React.FC<ScrollTextRevealCardProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(rgba(137,170,204,0.1)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none opacity-30" />
 
         {/* Top Header of the Vision Card */}
-        <div className="relative z-10 flex items-center justify-between pb-6 sm:pb-8 border-b border-stroke/70 flex-wrap gap-4">
+        <div className="relative z-10 flex items-center justify-between pb-4 sm:pb-5 border-b border-stroke/70 flex-wrap gap-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#89AACC]/15 border border-[#89AACC]/30 flex items-center justify-center text-[#89AACC]">
-              <Sparkles className="w-5 h-5 animate-pulse" />
+            <div className="h-9 w-9 rounded-full bg-[#89AACC]/15 border border-[#89AACC]/30 flex items-center justify-center text-[#89AACC]">
+              <Sparkles className="w-4 h-4 animate-pulse" />
             </div>
             <div>
-              <span className="text-[11px] font-mono tracking-[0.25em] text-[#89AACC] uppercase font-semibold block">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.25em] text-[#89AACC] uppercase font-semibold block">
                 CANDIDATE STATEMENT
               </span>
-              <h3 className="font-serif italic text-2xl sm:text-3xl text-text font-normal">
+              <h3 className="font-serif italic text-xl sm:text-2xl text-text font-normal">
                 Profile & Vision
               </h3>
             </div>
           </div>
 
           {/* Reading Status Pill */}
-          <div className="flex items-center gap-3 bg-[#121214] px-4 py-2 rounded-full border border-stroke/80">
+          <div className="flex items-center gap-3 bg-[#121214] px-3.5 py-1.5 rounded-full border border-stroke/80">
             <span className="text-xs font-mono text-muted tracking-wider">
               {isCompleted ? (
                 <span className="text-[#89AACC] flex items-center gap-1.5 font-semibold">
-                  <CheckCircle2 className="w-4 h-4" />
+                  <CheckCircle2 className="w-3.5 h-3.5" />
                   VISION COMPLETED
                 </span>
               ) : (
@@ -107,7 +107,7 @@ export const ScrollTextRevealCard: React.FC<ScrollTextRevealCardProps> = ({
             </span>
 
             {/* Progress Line Bar */}
-            <div className="relative h-1.5 w-20 sm:w-28 bg-stroke rounded-full overflow-hidden">
+            <div className="relative h-1.5 w-16 sm:w-24 bg-stroke rounded-full overflow-hidden">
               <div
                 ref={progressBarRef}
                 className="h-full w-full bg-gradient-to-r from-[#89AACC] to-[#4E85BF] rounded-full origin-left transition-transform duration-75"
@@ -117,15 +117,15 @@ export const ScrollTextRevealCard: React.FC<ScrollTextRevealCardProps> = ({
           </div>
         </div>
 
-        {/* Center: Full-Cover Scroll-Scrubbed Text Reveal Paragraphs */}
-        <div className="relative z-10 py-8 sm:py-10 space-y-6 sm:space-y-8">
+        {/* Center: Widescreen Horizontal Text Flow with Refined Typography */}
+        <div className="relative z-10 py-5 sm:py-6 space-y-4 sm:space-y-4">
           {paragraphs.map((paragraph, pIdx) => {
             const words = paragraph.split(' ');
 
             return (
               <p
                 key={pIdx}
-                className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-sans font-light leading-relaxed sm:leading-relaxed lg:leading-[1.6] tracking-tight"
+                className="text-base sm:text-lg md:text-xl lg:text-[22px] font-sans font-normal leading-relaxed sm:leading-[1.75] tracking-[-0.01em]"
               >
                 {words.map((word, wIdx) => (
                   <span
@@ -141,7 +141,7 @@ export const ScrollTextRevealCard: React.FC<ScrollTextRevealCardProps> = ({
         </div>
 
         {/* Bottom Card Footer */}
-        <div className="relative z-10 pt-6 border-t border-stroke/60 flex items-center justify-between text-xs font-mono text-muted flex-wrap gap-2">
+        <div className="relative z-10 pt-4 border-t border-stroke/60 flex items-center justify-between text-xs font-mono text-muted flex-wrap gap-2">
           <span className="tracking-wider">Tapas · Full-Stack Developer & Problem Solver</span>
           <span className="flex items-center gap-1.5 text-[#89AACC]">
             {isCompleted ? (
