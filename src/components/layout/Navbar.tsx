@@ -63,11 +63,6 @@ export const Navbar: React.FC = () => {
         return;
       }
 
-      if (href === '#resume') {
-        window.open('/resume.pdf', '_blank');
-        return;
-      }
-
       const target = document.querySelector(href);
       if (target) {
         const navHeight = 90;

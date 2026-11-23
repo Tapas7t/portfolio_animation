@@ -27,7 +27,7 @@ export const ResumeSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'structured' | 'pdf'>('structured');
 
   return (
-    <section id="resume" className="relative py-24 sm:py-32 bg-bg overflow-hidden scroll-mt-20">
+    <section id="resume" className="relative py-24 sm:py-32 bg-bg overflow-hidden scroll-mt-24 sm:scroll-mt-28">
       {/* Subtle Background Radial Ambient Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-r from-[#89AACC]/8 to-[#4E85BF]/8 rounded-full blur-[140px] pointer-events-none" />
 
