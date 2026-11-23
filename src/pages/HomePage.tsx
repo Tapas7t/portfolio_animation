@@ -3,6 +3,7 @@ import { ScrollIntroCurtain } from '../components/layout/ScrollIntroCurtain';
 import { HeroSection } from '../sections/HeroSection';
 import { SelectedWorksSection } from '../sections/SelectedWorksSection';
 import { AboutSection } from '../sections/AboutSection';
+import { ResumeSection } from '../sections/ResumeSection';
 import { StatsSection } from '../sections/StatsSection';
 import { JournalSection } from '../sections/JournalSection';
 import { ExplorationsSection } from '../sections/ExplorationsSection';
@@ -31,6 +32,9 @@ export const HomePage: React.FC = () => {
 
       {/* STAGE 4: About Me & Technical Skills (Asymmetric Layout) */}
       <AboutSection />
+
+      {/* STAGE 4.5: Resume & Qualifications (Interactive & Downloadable) */}
+      <ResumeSection />
 
       {/* STAGE 6 - Section A: Verified Statistics (3-Column Layout) */}
       <StatsSection />

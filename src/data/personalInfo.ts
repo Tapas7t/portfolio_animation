@@ -27,6 +27,7 @@ export const personalInfo: PersonalInfo = {
     { label: 'Home', href: '#home' },
     { label: 'Work', href: '#work' },
     { label: 'About', href: '#about' },
+    { label: 'Resume', href: '#resume' },
     { label: 'Journal', href: '#journal' },
     { label: 'Say hi', href: '#contact' },
   ],

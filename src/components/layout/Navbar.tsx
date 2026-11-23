@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
-import { Menu, X, ArrowUpRight, FileText } from 'lucide-react';
+import { Menu, X, ArrowUpRight, FileText, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface NavItem {
@@ -14,6 +14,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '#home', id: 'home' },
   { label: 'Work', href: '#work', id: 'work' },
   { label: 'About', href: '#about', id: 'about' },
+  { label: 'Resume', href: '#resume', id: 'resume' },
   { label: 'Journal', href: '#journal', id: 'journal' },
   { label: 'Say hi', href: '#contact', id: 'contact', isSpecial: true },
 ];
@@ -28,7 +29,7 @@ export const Navbar: React.FC = () => {
 
   // ScrollSpy to track active section
   useEffect(() => {
-    const sectionIds = ['home', 'work', 'about', 'journal', 'explorations', 'contact'];
+    const sectionIds = ['home', 'work', 'about', 'resume', 'journal', 'explorations', 'contact'];
 
     const handleScrollSpy = () => {
       const scrollPosition = window.scrollY + 200;
@@ -206,6 +207,15 @@ export const Navbar: React.FC = () => {
                 ) : null}
               </a>
             ))}
+            {/* Quick Download CV button in Mobile menu */}
+            <a
+              href="/Tapas_Karmakar_Resume.pdf"
+              download="Tapas_Karmakar_Resume.pdf"
+              className="flex items-center justify-center gap-2 mt-2 px-3.5 py-2.5 rounded-xl text-xs font-mono uppercase tracking-wider text-[#89AACC] border border-[#89AACC]/30 bg-[#89AACC]/10 hover:bg-[#89AACC]/20 transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download Resume (PDF)</span>
+            </a>
           </nav>
         </div>
       )}
