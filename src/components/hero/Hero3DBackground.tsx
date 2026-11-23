@@ -208,8 +208,11 @@ export const Hero3DBackground: React.FC<Hero3DBackgroundProps> = ({ isLoaded }) 
       </div>
 
       {/* DEPTH & CONTRAST VIGNETTE LAYERS */}
+      {/* Layer 0: Top Seamless Gradient Blend (Eliminates any hard top edge or border) */}
+      <div className="absolute top-0 left-0 right-0 h-48 sm:h-72 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent pointer-events-none z-10" />
+
       {/* Layer 1: Center Radial Contrast Mask (Ensures text "Tapas" and role subtitle stay 100% readable) */}
-      <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0a0a0a]/50 to-[#0a0a0a]/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-transparent to-[#0a0a0a]/90 pointer-events-none" />
 
       {/* Layer 2: Center ambient dark gradient tint */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/85 via-[#0a0a0a]/40 to-[#0a0a0a]" />

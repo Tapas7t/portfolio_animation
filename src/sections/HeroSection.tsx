@@ -119,7 +119,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isLoaded }) => {
       <Hero3DBackground isLoaded={isLoaded} />
 
       {/* Top spacer to ensure vertical breathing room under the floating pill navbar */}
-      <div className="h-28 sm:h-32 w-full shrink-0" />
+      <div className="h-16 sm:h-20 w-full shrink-0" />
 
       {/* Main Hero Content */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center my-auto">

@@ -151,15 +151,16 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         0.6
       );
 
-      // 6. Curtain Lift: slides upward (yPercent: -100) from 0.80 to 1.00
+      // 6. Curtain Lift: slides upward (yPercent: -100) from 0.82 to 1.00
       tl.to(
         curtainRef.current,
         {
           yPercent: -100,
+          opacity: 0,
           ease: 'power2.inOut',
-          duration: 0.2,
+          duration: 0.18,
         },
-        0.8
+        0.82
       );
     }, trackRef);
 
@@ -180,7 +181,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
   };
 
   return (
-    <div id="intro" ref={trackRef} className="relative w-full h-[220vh] sm:h-[240vh] bg-bg">
+    <div id="intro" ref={trackRef} className="relative w-full h-[160vh] sm:h-[170vh] bg-bg">
       {/* Pinned / Sticky Fullscreen Curtain */}
       <div
         ref={curtainRef}
