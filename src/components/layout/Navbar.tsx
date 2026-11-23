@@ -59,6 +59,16 @@ export const Navbar: React.FC = () => {
       setMobileMenuOpen(false);
 
       if (href === '#home') {
+        const homeEl = document.getElementById('home');
+        if (homeEl) {
+          const navHeight = 90;
+          const targetPosition = homeEl.offsetTop - navHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth',
+          });
+          return;
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
