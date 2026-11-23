@@ -56,7 +56,7 @@ export const AboutSection: React.FC = () => {
         <ScrollTextRevealCard paragraphs={aboutData.bio} />
 
         {/* STAGE 2: Rest of the Cards Cascade */}
-        <div className="pt-12 sm:pt-16 space-y-10">
+        <div className="pt-4 sm:pt-8 space-y-8">
           {/* Section Divider Subheading */}
           <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-[0.25em] text-muted">
             <span className="h-px flex-1 bg-stroke/60" />
