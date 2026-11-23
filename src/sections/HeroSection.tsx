@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { HLSVideo } from '../components/common/HLSVideo';
+import { Hero3DBackground } from '../components/hero/Hero3DBackground';
 import { Button } from '../components/common/Button';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,9 +15,6 @@ const ROLES = [
   'Web Developer',
   'Problem Solver',
 ];
-
-const VIDEO_STREAM_URL =
-  'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8';
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ isLoaded }) => {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
@@ -118,23 +115,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isLoaded }) => {
       ref={heroContainerRef}
       className="relative min-h-screen w-full flex flex-col justify-between items-center overflow-hidden bg-bg"
     >
-      {/* Background: Full-Screen HLS Video with hls.js + native fallback */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0">
-        <HLSVideo
-          src={VIDEO_STREAM_URL}
-          className="absolute inset-0 w-full h-full object-cover scale-[1.03] opacity-65 filter brightness-95"
-        />
-
-        {/* Cinematic Multi-Layered Overlays */}
-        {/* Layer 1: Dark Vignette / Ambient tint */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/85 via-[#0a0a0a]/40 to-[#0a0a0a]" />
-
-        {/* Layer 2: Radial ambient depth */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-tr from-[#89AACC]/12 to-[#4E85BF]/12 rounded-full blur-[140px]" />
-
-        {/* Layer 3: Bottom seamless gradient fade into page content */}
-        <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
-      </div>
+      {/* 3D Isometric Animated Cube Environment with Interactive Mouse Parallax */}
+      <Hero3DBackground isLoaded={isLoaded} />
 
       {/* Top spacer to ensure vertical breathing room under the floating pill navbar */}
       <div className="h-28 sm:h-32 w-full shrink-0" />
