@@ -23,6 +23,8 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
   const isScrolled = scrollY > 100;
+  // Seamlessly hide the floating navbar while on the intro curtain
+  const isIntroActive = scrollY < 350;
 
   // ScrollSpy to track active section
   useEffect(() => {
@@ -81,7 +83,11 @@ export const Navbar: React.FC = () => {
     <>
       {/* Floating Pill Navbar Fixed at Top Center */}
       <header
-        className={`fixed top-5 left-1/2 -translate-x-1/2 z-40 w-[92%] sm:w-auto transition-all duration-300 ${
+        className={`fixed top-5 left-1/2 -translate-x-1/2 z-40 w-[92%] sm:w-auto transition-all duration-500 ease-out ${
+          isIntroActive
+            ? 'opacity-0 -translate-y-6 pointer-events-none'
+            : 'opacity-100 translate-y-0 pointer-events-auto'
+        } ${
           isScrolled
             ? 'shadow-[0_16px_40px_rgba(0,0,0,0.7)] border-stroke bg-surface/90 backdrop-blur-xl'
             : 'shadow-[0_8px_30px_rgba(0,0,0,0.35)] border-stroke/70 bg-surface/65 backdrop-blur-md'
@@ -90,8 +96,11 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between sm:gap-7">
           {/* Logo with Circular Gradient Border & Hover Rotation */}
           <a
-            href="#home"
-            onClick={(e) => handleScrollClick(e, '#home')}
+            href="#intro"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="group flex items-center gap-2.5 outline-none"
             aria-label="Tapas Home"
           >

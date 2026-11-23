@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { LoadingScreen } from './components/layout/LoadingScreen';
 import { CustomCursor } from './components/common/CustomCursor';
 import { HomePage } from './pages/HomePage';
 
 export const App: React.FC = () => {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-  const handleLoadingComplete = () => {
-    setIsLoaded(true);
-  };
-
   return (
     <BrowserRouter>
-      {/* Loading Screen: 2700ms 000-100 counter, rotating words in Instrument Serif, blue progress bar */}
-      <LoadingScreen onComplete={handleLoadingComplete} />
-
       {/* Subtle dual Custom Cursor (desktop only, disabled on touch & reduced-motion) */}
       <CustomCursor />
 
@@ -28,7 +18,7 @@ export const App: React.FC = () => {
         {/* Page Content */}
         <main className="flex-1 w-full">
           <Routes>
-            <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
         </main>
 

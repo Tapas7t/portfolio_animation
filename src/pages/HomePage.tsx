@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { ScrollIntroCurtain } from '../components/layout/ScrollIntroCurtain';
 import { HeroSection } from '../sections/HeroSection';
 import { SelectedWorksSection } from '../sections/SelectedWorksSection';
 import { AboutSection } from '../sections/AboutSection';
@@ -7,15 +8,23 @@ import { JournalSection } from '../sections/JournalSection';
 import { ExplorationsSection } from '../sections/ExplorationsSection';
 import { ContactSection } from '../sections/ContactSection';
 
-interface HomePageProps {
-  isLoaded: boolean;
-}
+export const HomePage: React.FC = () => {
+  const [isHeroRevealed, setIsHeroRevealed] = useState<boolean>(false);
 
-export const HomePage: React.FC<HomePageProps> = ({ isLoaded }) => {
+  // If page reloads while already scrolled down or loaded via anchor link, reveal hero immediately
+  useEffect(() => {
+    if (window.scrollY > 300) {
+      setIsHeroRevealed(true);
+    }
+  }, []);
+
   return (
     <div className="w-full">
+      {/* STAGE 1: Pinned Scroll-to-Enter Curtain (Apple / Studio style) */}
+      <ScrollIntroCurtain onHeroReveal={() => setIsHeroRevealed(true)} />
+
       {/* STAGE 2: Hero Section with Fullscreen HLS Video & GSAP Timeline */}
-      <HeroSection isLoaded={isLoaded} />
+      <HeroSection isLoaded={isHeroRevealed} />
 
       {/* STAGE 3: Selected Works (12-Column Bento Grid) */}
       <SelectedWorksSection />
