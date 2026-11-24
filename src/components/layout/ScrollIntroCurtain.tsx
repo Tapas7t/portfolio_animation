@@ -60,13 +60,13 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         },
       });
 
-      // 1. Counter (000 to 100) from progress 0.0 to 0.8
+      // 1. Counter (000 to 100) evenly paced from progress 0.0 to 0.85
       tl.to(
         counter,
         {
           val: 100,
           ease: 'none',
-          duration: 0.8,
+          duration: 0.85,
           onUpdate: () => {
             if (counterTextRef.current) {
               counterTextRef.current.innerText = String(Math.floor(counter.val)).padStart(3, '0');
@@ -76,14 +76,14 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         0
       );
 
-      // 2. Progress Bar Fill from progress 0.0 to 0.8
+      // 2. Progress Bar Fill from progress 0.0 to 0.85
       if (progressBarRef.current) {
         tl.to(
           progressBarRef.current,
           {
             scaleX: 1,
             ease: 'none',
-            duration: 0.8,
+            duration: 0.85,
           },
           0
         );
@@ -103,7 +103,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         );
       }
 
-      // 4. Word 1 (Develop) -> Word 2 (Create) transition around 0.26 - 0.34
+      // 4. Word 1 (Develop) -> Word 2 (Create) transition around 0.28 - 0.38
       tl.to(
         [wordDevelopRef.current, subDevelopRef.current],
         {
@@ -113,7 +113,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.in',
         },
-        0.26
+        0.28
       );
 
       tl.fromTo(
@@ -126,10 +126,10 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.out',
         },
-        0.34
+        0.36
       );
 
-      // 5. Word 2 (Create) -> Word 3 (Innovate) transition around 0.52 - 0.60
+      // 5. Word 2 (Create) -> Word 3 (Innovate) transition around 0.58 - 0.68
       tl.to(
         [wordCreateRef.current, subCreateRef.current],
         {
@@ -139,7 +139,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.in',
         },
-        0.52
+        0.58
       );
 
       tl.fromTo(
@@ -152,19 +152,19 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.out',
         },
-        0.6
+        0.66
       );
 
-      // 6. Curtain Lift: slides upward (yPercent: -100) from 0.82 to 1.00
+      // 6. Curtain Lift: slides upward (yPercent: -100) from 0.85 to 1.00
       tl.to(
         curtainRef.current,
         {
           yPercent: -100,
           opacity: 0,
           ease: 'power2.inOut',
-          duration: 0.18,
+          duration: 0.15,
         },
-        0.82
+        0.85
       );
     }, trackRef);
 
@@ -185,7 +185,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
   };
 
   return (
-    <div id="intro" ref={trackRef} className="relative w-full h-[140vh] bg-bg">
+    <div id="intro" ref={trackRef} className="relative w-full h-[200vh] bg-bg">
       {/* Pinned / Sticky Fullscreen Curtain */}
       <div
         ref={curtainRef}
