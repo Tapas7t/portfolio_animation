@@ -39,7 +39,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           trigger: trackRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.6,
+          scrub: 1.0, // Silky smooth inertia on scroll
           onUpdate: (self) => {
             scrollProgressRef.current = self.progress;
 
@@ -52,15 +52,15 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
               }
             }
 
-            // Trigger Hero entrance animation when scrubbing past 70%
-            if (self.progress >= 0.7 && onHeroReveal) {
+            // Trigger Hero entrance animation when scrubbing past 75%
+            if (self.progress >= 0.75 && onHeroReveal) {
               onHeroReveal();
             }
           },
         },
       });
 
-      // 1. Counter (000 to 100) evenly paced from progress 0.0 to 0.85
+      // 1. Counter (000 to 100) evenly paced across 0.0 to 0.85
       tl.to(
         counter,
         {
@@ -76,7 +76,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         0
       );
 
-      // 2. Progress Bar Fill from progress 0.0 to 0.85
+      // 2. Progress Bar Fill across 0.0 to 0.85
       if (progressBarRef.current) {
         tl.to(
           progressBarRef.current,
@@ -103,7 +103,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         );
       }
 
-      // 4. Word 1 (Develop) -> Word 2 (Create) transition around 0.28 - 0.38
+      // 4. Word 1 (Develop) stays visible 0% -> 28%, then transitions to Word 2 (Create) from 0.28 to 0.38
       tl.to(
         [wordDevelopRef.current, subDevelopRef.current],
         {
@@ -129,7 +129,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         0.36
       );
 
-      // 5. Word 2 (Create) -> Word 3 (Innovate) transition around 0.58 - 0.68
+      // 5. Word 2 (Create) stays visible 38% -> 60%, then transitions to Word 3 (Innovate) from 0.60 to 0.70
       tl.to(
         [wordCreateRef.current, subCreateRef.current],
         {
@@ -139,7 +139,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.in',
         },
-        0.58
+        0.60
       );
 
       tl.fromTo(
@@ -152,10 +152,11 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.out',
         },
-        0.66
+        0.68
       );
 
-      // 6. Curtain Lift: slides upward (yPercent: -100) from 0.85 to 1.00
+      // 6. Word 3 (Innovate) stays visible 70% -> 85%
+      // 7. Curtain Lift: slides upward (yPercent: -100) from 0.85 to 1.00 into Hero
       tl.to(
         curtainRef.current,
         {
@@ -185,7 +186,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
   };
 
   return (
-    <div id="intro" ref={trackRef} className="relative w-full h-[200vh] bg-bg">
+    <div id="intro" ref={trackRef} className="relative w-full h-[320vh] bg-bg">
       {/* Pinned / Sticky Fullscreen Curtain */}
       <div
         ref={curtainRef}
