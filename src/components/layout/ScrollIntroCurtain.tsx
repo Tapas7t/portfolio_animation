@@ -185,13 +185,13 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
   };
 
   return (
-    <div id="intro" ref={trackRef} className="relative w-full h-[160vh] sm:h-[170vh] bg-bg">
+    <div id="intro" ref={trackRef} className="relative w-full h-[140vh] bg-bg">
       {/* Pinned / Sticky Fullscreen Curtain */}
       <div
         ref={curtainRef}
         className="sticky top-0 w-full h-screen z-50 bg-[#0a0a0a] flex flex-col justify-between p-6 sm:p-10 md:p-14 select-none overflow-hidden will-change-transform"
       >
-        {/* Interactive 3D WebGL Neural Plexus Core Background */}
+        {/* Interactive 3D WebGL Neural Plexus Core Background (Framing Around Text) */}
         <NeuralCoreBackground progressRef={scrollProgressRef} />
 
         {/* Subtle Ambient Radial Glow */}
@@ -206,15 +206,18 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           </span>
         </div>
 
-        {/* Center Rotating Words in Instrument Serif */}
+        {/* Center Rotating Words in Instrument Serif with High-Contrast Dark Center */}
         <div className="relative z-10 flex flex-col items-center justify-center my-auto w-full">
+          {/* Soft dark radial vignette ensuring 100% clean typography and legibility */}
+          <div className="absolute w-[450px] sm:w-[650px] h-[220px] sm:h-[280px] bg-[#0a0a0a]/85 blur-2xl pointer-events-none -z-10 rounded-full" />
+
           <div className="relative h-28 sm:h-36 md:h-44 w-full flex items-center justify-center overflow-hidden">
             {/* Word 1: Develop. */}
             <div
               ref={wordDevelopRef}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <h2 className="font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text font-normal text-center tracking-tight">
+              <h2 className="font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text font-normal text-center tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
                 Develop<span className="text-[#89AACC]">.</span>
               </h2>
             </div>
@@ -224,7 +227,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
               ref={wordCreateRef}
               className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-8"
             >
-              <h2 className="font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text font-normal text-center tracking-tight">
+              <h2 className="font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text font-normal text-center tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
                 Create<span className="text-[#89AACC]">.</span>
               </h2>
             </div>
@@ -234,29 +237,29 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
               ref={wordInnovateRef}
               className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-8"
             >
-              <h2 className="font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text font-normal text-center tracking-tight">
+              <h2 className="font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text font-normal text-center tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
                 Innovate<span className="text-[#89AACC]">.</span>
               </h2>
             </div>
           </div>
 
-          {/* Subtitle Rotator */}
+          {/* Subtitle Rotator - Cleanly framed inside central core */}
           <div className="relative h-6 w-full flex items-center justify-center mt-3 sm:mt-5 overflow-hidden">
             <p
               ref={subDevelopRef}
-              className="absolute text-xs sm:text-sm text-muted font-sans tracking-[0.22em] uppercase text-center"
+              className="absolute text-xs sm:text-sm text-text/90 font-sans tracking-[0.24em] uppercase text-center font-medium drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
             >
               DESIGNING DIGITAL SOLUTIONS
             </p>
             <p
               ref={subCreateRef}
-              className="absolute text-xs sm:text-sm text-muted font-sans tracking-[0.22em] uppercase text-center opacity-0 translate-y-4"
+              className="absolute text-xs sm:text-sm text-text/90 font-sans tracking-[0.24em] uppercase text-center font-medium opacity-0 translate-y-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
             >
               CRAFTING MODERN DIGITAL PRODUCTS
             </p>
             <p
               ref={subInnovateRef}
-              className="absolute text-xs sm:text-sm text-muted font-sans tracking-[0.22em] uppercase text-center opacity-0 translate-y-4"
+              className="absolute text-xs sm:text-sm text-text/90 font-sans tracking-[0.24em] uppercase text-center font-medium opacity-0 translate-y-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
             >
               ENGINEERING INTELLIGENT SYSTEMS
             </p>

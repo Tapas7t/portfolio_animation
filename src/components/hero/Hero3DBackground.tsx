@@ -74,50 +74,27 @@ export const Hero3DBackground: React.FC<Hero3DBackgroundProps> = ({ isLoaded }) 
     };
   }, []);
 
-  // Entrance 3D zoom & reveal timeline when isLoaded triggers
+  // Ambient light sheen sweep loop
   useEffect(() => {
-    if (!isLoaded || !bgImageRef.current) return;
-
     const ctx = gsap.context(() => {
-      // 1. Cinematic 3D entrance: scale & blur resolve
-      gsap.fromTo(
-        bgImageRef.current,
-        {
-          scale: 1.25,
-          filter: 'blur(12px) brightness(0.6)',
-          opacity: 0,
-        },
-        {
+      // 1. Ensure background artwork and wireframes are immediately visible
+      if (bgImageRef.current) {
+        gsap.set(bgImageRef.current, {
           scale: 1.12,
           filter: 'blur(0px) brightness(0.95)',
           opacity: 1,
-          duration: 1.8,
-          ease: 'power3.out',
-        }
-      );
-
-      // 2. Wireframe elements assemble into depth
-      if (wireframesRef.current) {
-        gsap.fromTo(
-          wireframesRef.current.children,
-          {
-            opacity: 0,
-            scale: 0.8,
-            y: 40,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            stagger: 0.12,
-            duration: 1.4,
-            ease: 'power2.out',
-            delay: 0.3,
-          }
-        );
+        });
       }
 
-      // 3. Periodic subtle ambient light sheen sweep
+      if (wireframesRef.current) {
+        gsap.set(wireframesRef.current.children, {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+        });
+      }
+
+      // 2. Periodic subtle ambient light sheen sweep
       if (lightSweepRef.current) {
         gsap.to(lightSweepRef.current, {
           x: '250%',
