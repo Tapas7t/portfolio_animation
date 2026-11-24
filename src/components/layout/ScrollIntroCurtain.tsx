@@ -39,7 +39,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           trigger: trackRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 1.0, // Silky smooth inertia on scroll
+          scrub: 0.6,
           onUpdate: (self) => {
             scrollProgressRef.current = self.progress;
 
@@ -52,21 +52,21 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
               }
             }
 
-            // Trigger Hero entrance animation when scrubbing past 75%
-            if (self.progress >= 0.75 && onHeroReveal) {
+            // Trigger Hero entrance animation when scrubbing past 70%
+            if (self.progress >= 0.7 && onHeroReveal) {
               onHeroReveal();
             }
           },
         },
       });
 
-      // 1. Counter (000 to 100) evenly paced across 0.0 to 0.85
+      // 1. Counter (000 to 100) from progress 0.0 to 0.8
       tl.to(
         counter,
         {
           val: 100,
           ease: 'none',
-          duration: 0.85,
+          duration: 0.8,
           onUpdate: () => {
             if (counterTextRef.current) {
               counterTextRef.current.innerText = String(Math.floor(counter.val)).padStart(3, '0');
@@ -76,14 +76,14 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         0
       );
 
-      // 2. Progress Bar Fill across 0.0 to 0.85
+      // 2. Progress Bar Fill from progress 0.0 to 0.8
       if (progressBarRef.current) {
         tl.to(
           progressBarRef.current,
           {
             scaleX: 1,
             ease: 'none',
-            duration: 0.85,
+            duration: 0.8,
           },
           0
         );
@@ -103,7 +103,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         );
       }
 
-      // 4. Word 1 (Develop) stays visible 0% -> 28%, then transitions to Word 2 (Create) from 0.28 to 0.38
+      // 4. Word 1 (Develop) -> Word 2 (Create) transition around 0.26 - 0.34
       tl.to(
         [wordDevelopRef.current, subDevelopRef.current],
         {
@@ -113,7 +113,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.in',
         },
-        0.28
+        0.26
       );
 
       tl.fromTo(
@@ -126,10 +126,10 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.out',
         },
-        0.36
+        0.34
       );
 
-      // 5. Word 2 (Create) stays visible 38% -> 60%, then transitions to Word 3 (Innovate) from 0.60 to 0.70
+      // 5. Word 2 (Create) -> Word 3 (Innovate) transition around 0.52 - 0.60
       tl.to(
         [wordCreateRef.current, subCreateRef.current],
         {
@@ -139,7 +139,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.in',
         },
-        0.60
+        0.52
       );
 
       tl.fromTo(
@@ -152,20 +152,19 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           duration: 0.08,
           ease: 'power2.out',
         },
-        0.68
+        0.6
       );
 
-      // 6. Word 3 (Innovate) stays visible 70% -> 85%
-      // 7. Curtain Lift: slides upward (yPercent: -100) from 0.85 to 1.00 into Hero
+      // 6. Curtain Lift: slides upward (yPercent: -100) from 0.82 to 1.00
       tl.to(
         curtainRef.current,
         {
           yPercent: -100,
           opacity: 0,
           ease: 'power2.inOut',
-          duration: 0.15,
+          duration: 0.18,
         },
-        0.85
+        0.82
       );
     }, trackRef);
 
@@ -186,7 +185,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
   };
 
   return (
-    <div id="intro" ref={trackRef} className="relative w-full h-[320vh] bg-bg">
+    <div id="intro" ref={trackRef} className="relative w-full h-[140vh] bg-bg">
       {/* Pinned / Sticky Fullscreen Curtain */}
       <div
         ref={curtainRef}

@@ -331,45 +331,45 @@ export const NeuralCoreBackground: React.FC<NeuralCoreBackgroundProps> = ({ prog
       const progress = progressRef.current || 0;
 
       // Smooth mouse lerp
-      currentMouseX += (targetMouseX - currentMouseX) * 0.025;
-      currentMouseY += (targetMouseY - currentMouseY) * 0.025;
+      currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.05;
 
-      // Calm, Hypnotic 3D Rotation: base rotation speed reduced by ~85% (0.018)
-      const speedMultiplier = 1.0 + progress * 0.15;
-      const baseRotY = elapsedTime * 0.018 * speedMultiplier;
-      const baseRotX = Math.sin(elapsedTime * 0.08) * 0.04;
-      const baseRotZ = elapsedTime * 0.008 * speedMultiplier;
+      // Base rotation speed accelerates as user scrolls towards 100%
+      const speedMultiplier = 1.0 + progress * 2.5;
+      const baseRotY = elapsedTime * 0.14 * speedMultiplier;
+      const baseRotX = Math.sin(elapsedTime * 0.3) * 0.1;
+      const baseRotZ = elapsedTime * 0.06 * speedMultiplier;
 
-      // Core rotation with subtle, weighted 3D mouse tilt
-      coreGroup.rotation.y = baseRotY + currentMouseX * 0.15;
-      coreGroup.rotation.x = baseRotX + currentMouseY * 0.12;
+      // Core rotation with 3D mouse tilt
+      coreGroup.rotation.y = baseRotY + currentMouseX * 0.38;
+      coreGroup.rotation.x = baseRotX + currentMouseY * 0.32;
       coreGroup.rotation.z = baseRotZ;
 
-      // Orbital rings rotate at very slow, calm speeds
-      orbitRing1.rotation.z += 0.00025 * speedMultiplier;
-      orbitRing2.rotation.z -= 0.00020 * speedMultiplier;
-      orbitRing3.rotation.z += 0.00015 * speedMultiplier;
+      // Orbital rings rotate at distinct speeds
+      orbitRing1.rotation.z += 0.0018 * speedMultiplier;
+      orbitRing2.rotation.z -= 0.0014 * speedMultiplier;
+      orbitRing3.rotation.z += 0.001 * speedMultiplier;
 
       // Scroll-Driven Scale & Warp Transition
-      if (progress < 0.85) {
+      if (progress < 0.8) {
         // Subtle expansion as progress counts 000% -> 100%
-        const scale = 1.0 + progress * 0.12;
+        const scale = 1.0 + progress * 0.2;
         coreGroup.scale.set(scale, scale, scale);
-        coreGroup.position.z = progress * 1.0;
-        linesMaterial.opacity = 0.24 + progress * 0.12;
+        coreGroup.position.z = progress * 1.5;
+        linesMaterial.opacity = 0.26 + progress * 0.16;
         nodesMaterial.opacity = 0.95;
       } else {
-        // 85% to 100%: Curtain lifts, dimensional warp zoom into Hero section
-        const warp = (progress - 0.85) / 0.15; // 0 to 1
-        const scale = 1.12 + warp * 2.0;
+        // 80% to 100%: Curtain lifts, dimensional warp zoom into Hero section
+        const warp = (progress - 0.8) / 0.2; // 0 to 1
+        const scale = 1.2 + warp * 2.4;
         coreGroup.scale.set(scale, scale, scale);
-        coreGroup.position.z = 1.0 + warp * 6.0;
-        linesMaterial.opacity = Math.max(0, 0.36 * (1 - warp * 1.2));
+        coreGroup.position.z = 1.5 + warp * 7.0;
+        linesMaterial.opacity = Math.max(0, 0.42 * (1 - warp * 1.2));
         nodesMaterial.opacity = Math.max(0, 0.95 * (1 - warp * 1.2));
         hubsMaterial.opacity = Math.max(0, 0.95 * (1 - warp * 1.2));
       }
 
-      // Organic node pulsation & synaptic firing - gentle & calm breathing rhythm
+      // Organic node pulsation & synaptic firing
       const posAttr = nodesGeometry.getAttribute('position') as THREE.BufferAttribute;
       const posArr = posAttr.array as Float32Array;
 
@@ -377,11 +377,11 @@ export const NeuralCoreBackground: React.FC<NeuralCoreBackgroundProps> = ({ prog
         const base = baseNodePositions[i];
         const vel = nodeVelocities[i];
 
-        // Calm, smooth drift wave without nervous jitter
-        const wave = Math.sin(elapsedTime * 0.35 + base.x * 0.2 + base.y * 0.2) * 0.06;
-        posArr[i * 3] = base.x + vel.x * Math.sin(elapsedTime * 0.2) * 1.2 + (base.x / majorRadiusX) * wave;
-        posArr[i * 3 + 1] = base.y + vel.y * Math.cos(elapsedTime * 0.2) * 1.2 + (base.y / majorRadiusY) * wave;
-        posArr[i * 3 + 2] = base.z + vel.z * Math.sin(elapsedTime * 0.25) * 1.0 + wave * 0.15;
+        // Breathing perturbation wave
+        const wave = Math.sin(elapsedTime * 2.0 + base.x * 0.5 + base.y * 0.5) * 0.16;
+        posArr[i * 3] = base.x + vel.x * Math.sin(elapsedTime) * 10 + (base.x / majorRadiusX) * wave;
+        posArr[i * 3 + 1] = base.y + vel.y * Math.cos(elapsedTime) * 10 + (base.y / majorRadiusY) * wave;
+        posArr[i * 3 + 2] = base.z + vel.z * Math.sin(elapsedTime * 1.4) * 6 + wave * 0.4;
       }
       posAttr.needsUpdate = true;
 
@@ -396,15 +396,15 @@ export const NeuralCoreBackground: React.FC<NeuralCoreBackgroundProps> = ({ prog
       }
       hubPosAttr.needsUpdate = true;
 
-      // Deep, meditative flare breathing cycle (takes ~11s per breath)
-      const pulse = Math.sin(elapsedTime * 0.55 + progress * 1.5) * 0.3 + 0.7;
-      hubsMaterial.size = (2.6 + pulse * 1.0) * (1.0 + progress * 0.2);
+      // Hotspots pulsing glow
+      const pulse = Math.sin(elapsedTime * 4.0 + progress * 5.5) * 0.4 + 0.6;
+      hubsMaterial.size = (3.0 + pulse * 1.6) * (1.0 + progress * 0.45);
 
-      // Bokeh particles drifting at ultra-slow rate
+      // Bokeh particles drifting
       const bokehAttr = bokehGeometry.getAttribute('position') as THREE.BufferAttribute;
       const bokehArr = bokehAttr.array as Float32Array;
       for (let b = 0; b < BOKEH_COUNT; b++) {
-        bokehArr[b * 3 + 1] += 0.0008;
+        bokehArr[b * 3 + 1] += 0.005;
         if (bokehArr[b * 3 + 1] > 16) {
           bokehArr[b * 3 + 1] = -16;
         }

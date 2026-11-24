@@ -23,9 +23,29 @@ export const Navbar: React.FC = () => {
   const scrollY = useScrollPosition();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
+  const [isIntroActive, setIsIntroActive] = useState<boolean>(true);
   const isScrolled = scrollY > 100;
-  // Seamlessly hide the floating navbar while on the intro curtain
-  const isIntroActive = scrollY < 350;
+
+  // Seamlessly hide the floating navbar while on the intro curtain, reveal upon entering #home
+  useEffect(() => {
+    const checkIntroStatus = () => {
+      const homeSection = document.getElementById('home');
+      if (homeSection) {
+        setIsIntroActive(window.scrollY < homeSection.offsetTop - 120);
+      } else {
+        setIsIntroActive(window.scrollY < 1800);
+      }
+    };
+
+    window.addEventListener('scroll', checkIntroStatus, { passive: true });
+    window.addEventListener('resize', checkIntroStatus, { passive: true });
+    checkIntroStatus();
+
+    return () => {
+      window.removeEventListener('scroll', checkIntroStatus);
+      window.removeEventListener('resize', checkIntroStatus);
+    };
+  }, []);
 
   // ScrollSpy to track active section
   useEffect(() => {

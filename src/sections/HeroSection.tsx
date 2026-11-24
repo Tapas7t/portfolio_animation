@@ -4,6 +4,9 @@ import { Button } from '../components/common/Button';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface HeroSectionProps {
   isLoaded: boolean;
@@ -31,16 +34,51 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isLoaded }) => {
     return () => clearInterval(roleInterval);
   }, []);
 
-  // Ensure content is immediately clear and visible when curtain lifts
+  // Option 1: Cinematic Elevation & Dolly-Zoom as user enters Hero from intro curtain
   useEffect(() => {
-    if (!contentWrapperRef.current) return;
+    const ctx = gsap.context(() => {
+      if (!contentWrapperRef.current || !heroContainerRef.current) return;
 
-    gsap.set(contentWrapperRef.current, {
-      scale: 1,
-      y: 0,
-      opacity: 1,
-      filter: 'blur(0px)',
-    });
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        gsap.set(contentWrapperRef.current, {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+        });
+        return;
+      }
+
+      // Smooth scroll-driven dolly zoom & elevation
+      gsap.fromTo(
+        contentWrapperRef.current,
+        {
+          scale: 0.82,
+          y: 65,
+          opacity: 0.35,
+          filter: 'blur(8px)',
+        },
+        {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: heroContainerRef.current,
+            start: 'top 85%',
+            end: 'top 20%',
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+    }, heroContainerRef);
+
+    ScrollTrigger.refresh();
+
+    return () => ctx.revert();
   }, [isLoaded]);
 
   return (
