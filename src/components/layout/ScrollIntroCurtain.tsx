@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { NeuralCoreBackground } from '../intro/NeuralCoreBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,7 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
   const counterTextRef = useRef<HTMLSpanElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
+  const scrollProgressRef = useRef<number>(0);
 
   // Words
   const wordDevelopRef = useRef<HTMLDivElement>(null);
@@ -39,6 +41,8 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
           end: 'bottom bottom',
           scrub: 0.6,
           onUpdate: (self) => {
+            scrollProgressRef.current = self.progress;
+
             // Pointer events toggle when curtain is lifted
             if (curtainRef.current) {
               if (self.progress >= 0.98) {
@@ -187,8 +191,11 @@ export const ScrollIntroCurtain: React.FC<ScrollIntroCurtainProps> = ({ onHeroRe
         ref={curtainRef}
         className="sticky top-0 w-full h-screen z-50 bg-[#0a0a0a] flex flex-col justify-between p-6 sm:p-10 md:p-14 select-none overflow-hidden will-change-transform"
       >
+        {/* Interactive 3D WebGL Neural Plexus Core Background */}
+        <NeuralCoreBackground progressRef={scrollProgressRef} />
+
         {/* Subtle Ambient Radial Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[350px] sm:h-[420px] bg-gradient-to-r from-[#89AACC]/12 to-[#4E85BF]/12 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[350px] sm:h-[420px] bg-gradient-to-r from-[#FFAE19]/10 via-[#89AACC]/10 to-[#4E85BF]/10 rounded-full blur-[140px] pointer-events-none z-[1]" />
 
         {/* Top Row: Brand & Status (Exact visual from screenshot) */}
         <div className="relative z-10 flex items-center justify-between text-xs tracking-widest uppercase">
